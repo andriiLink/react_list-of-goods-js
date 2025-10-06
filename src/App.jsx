@@ -23,7 +23,10 @@ export const App = () => {
   const [sortType, setSortType] = useState('');
   const [reverse, setReverse] = useState(false);
 
-  function getPrepearedGoods(goods, { sortType: localSortType, reverse: localReverse }) {
+  function getPrepearedGoods(
+    goods,
+    { sortType: localSortType, reverse: localReverse },
+  ) {
     const prepearedGoods = [...goods];
 
     if (localSortType) {
@@ -59,6 +62,23 @@ export const App = () => {
     reverse,
   });
 
+  function handleSortByAlphabet() {
+    setSortType(SORT_BY_ALPHABET);
+  }
+
+  function handleSortByLength() {
+    setSortType(SORT_BY_LENGTH);
+  }
+
+  function toggleReverse() {
+    setReverse(!reverse);
+  }
+
+  function resetList() {
+    setSortType('');
+    setReverse(false);
+  }
+
   return (
     <div className="section content">
       <div className="buttons">
@@ -67,7 +87,7 @@ export const App = () => {
           className={cn('button', 'is-info', {
             'is-light': sortType !== SORT_BY_ALPHABET,
           })}
-          onClick={() => setSortType(SORT_BY_ALPHABET)}
+          onClick={handleSortByAlphabet}
         >
           Sort alphabetically
         </button>
@@ -77,7 +97,7 @@ export const App = () => {
           className={cn('button', 'is-success', {
             'is-light': sortType !== SORT_BY_LENGTH,
           })}
-          onClick={() => setSortType(SORT_BY_LENGTH)}
+          onClick={handleSortByLength}
         >
           Sort by length
         </button>
@@ -87,7 +107,7 @@ export const App = () => {
           className={cn('button', 'is-warning', {
             'is-light': reverse !== true,
           })}
-          onClick={() => setReverse(!reverse)}
+          onClick={toggleReverse}
         >
           Reverse
         </button>
@@ -96,10 +116,7 @@ export const App = () => {
           <button
             type="button"
             className="button is-danger is-light"
-            onClick={() => {
-              setSortType('');
-              setReverse(false);
-            }}
+            onClick={resetList}
           >
             Reset
           </button>
